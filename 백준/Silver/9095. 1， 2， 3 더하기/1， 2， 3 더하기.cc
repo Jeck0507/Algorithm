@@ -1,28 +1,21 @@
 #include <iostream>
 using namespace std;
-
-int t, n;
-int cnt = 0;
-void solve(int sum) {
-    if (sum == n) {
-        cnt++;
-        return;
-    }
-    if (sum > n) return;
-    for (int i = 1; i <= 3; i++) {
-        solve(sum + i);
-    }
-}
-
 int main() {
+    int t;
     cin >> t;
 
-    for (int i = 0; i < t; i++) {
-        cin >> n;
-        solve(0);
-        cout << cnt << endl;
-        cnt = 0;
-    }
+    int dp[11];
 
-    return 0;
+    dp[0] = 1;
+    dp[1] = 2;
+    dp[2] = 4;
+
+    for (int i = 0; i < t; i++) {
+        int n;
+        cin >> n;
+        for (int j = 3; j <= n; j++) {
+            dp[j] = dp[j - 1] + dp[j - 2] + dp[j - 3];
+        }
+        cout << dp[n - 1] << endl;
+    }
 }
